@@ -7,6 +7,8 @@ const app = new Koa();
 const router = new Router();
 const PORT = 3000;
 
+router.get("clients/:id", (ctx) => {});
+
 router.post("/client", async (ctx) => {
 	try {
 		// retreive request body
@@ -84,7 +86,8 @@ router.post("/clients/:id/message", async (ctx) => {
 		ctx.body = { message: "Internal server error." };
 	}
 });
-router.post("/client/:id/debt");
+
+//router.post("/client/:id/debt");
 
 app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
