@@ -7,9 +7,30 @@ const app = new Koa();
 const router = new Router();
 const PORT = 3000;
 
-router.get("clients/:id", (ctx) => {});
+router.get("/client/:id", async (ctx) => {
+	try {
+		const clientId = Number.parseInt(ctx.params.id);
+		const client = await databaseController.getSingleClient(clientId);
+		ctx.body = client;
+	} catch (error) {
+		console.log(error);
+		ctx.status = 500;
+		ctx.body = { message: "Internal server error." };
+	}
+});
 
-router.post("/client", async (ctx) => {
+router.get("/clients", async (ctx) => {
+	try {
+		const clients = await databaseController.getAllClients();
+		ctx.body = clients;
+	} catch (error) {
+		console.log(error);
+		ctx.status = 500;
+		ctx.body = { message: "Internal server error." };
+	}
+});
+
+router.post("/clients", async (ctx) => {
 	try {
 		// retreive request body
 		const client = ctx.request.body as {
@@ -45,12 +66,13 @@ router.post("/client", async (ctx) => {
 
 		// adding debts to table
 		for (const dbt of client.debts) {
-			await databaseController.addDebt(
+			const dbtId = await databaseController.addDebt(
 				dbt.institution,
 				dbt.amount,
 				dbt.dueDate,
 				clientId
 			);
+			console.log(dbtId);
 		}
 		// setting response body
 		ctx.body = { message: "Client added successfully.", id: clientId };

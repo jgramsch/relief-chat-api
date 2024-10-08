@@ -135,9 +135,6 @@ class DatabaseController {
 			console.error("Error adding client:", error);
 			throw error;
 		}
-		// finally {
-		// 	await this.sequelize.close();
-		// }
 	}
 
 	async addMessage(
@@ -157,16 +154,13 @@ class DatabaseController {
 				sentAt,
 				clientId,
 			});
-
+			await this.updateLastMessageAt(clientId, sentAt);
 			// console.log("Message added successfully:", newMessage);
 			return newMessage.dataValues.id;
 		} catch (error) {
 			console.error("Error adding message:", error);
 			throw error;
 		}
-		// finally {
-		// 	await this.sequelize.close();
-		// }
 	}
 
 	async addDebt(
@@ -193,10 +187,61 @@ class DatabaseController {
 			console.error("Error adding debt:", error);
 			throw error;
 		}
-		// finally {
-		// 	await this.sequelize.close();
-		// }
 	}
+	async getSingleClient(clientId: number) {
+		try {
+			// Query the Client with associated Messages and Debts
+			const client = await this.Client.findOne({
+				where: { id: clientId },
+				include: [{ model: this.Message }, { model: this.Debt }],
+			});
+
+			if (!client) {
+				console.log(`Client with id ${clientId} not found.`);
+				return null;
+			}
+
+			// console.log("Client with messages and debts:", client);
+			return client;
+		} catch (error) {
+			console.error("Error fetching client:", error);
+			throw error;
+		}
+	}
+	async getAllClients() {
+		try {
+			// Query all clients without including messages or debts
+			const clients = await this.Client.findAll({
+				attributes: ["id", "name", "rut", "lastMessageAt"], // Specify the attributes to select
+			});
+
+			console.log("All clients:", clients);
+			return clients;
+		} catch (error) {
+			console.error("Error fetching clients:", error);
+			throw error;
+		}
+	}
+	async updateLastMessageAt(clientId: number, lastMessageAt: Date) {
+		try {
+			// Update the client's lastMessageAt field
+			const result = await this.Client.update(
+				{ lastMessageAt }, // Set the new value for lastMessageAt
+				{ where: { id: clientId } } // Specify the client by id
+			);
+
+			if (result[0] === 0) {
+				console.log(`No client found with id ${clientId}.`);
+			} else {
+				console.log(`Client with id ${clientId} updated successfully.`);
+			}
+			return result;
+		} catch (error) {
+			console.error("Error updating lastMessageAt:", error);
+			throw error;
+		}
+	}
+
 	async closeConection() {
 		await this.sequelize.close();
 	}
