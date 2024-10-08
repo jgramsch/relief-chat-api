@@ -11,6 +11,7 @@ class DatabaseController {
 		username: process.env.DB_USER,
 		password: process.env.DB_PASSWORD,
 		database: process.env.DB_NAME,
+		logging: false,
 	});
 
 	Client = this.sequelize.define(
@@ -113,6 +114,12 @@ class DatabaseController {
 			timestamps: false,
 		}
 	);
+	constructor() {
+		this.Client.hasMany(this.Message, { foreignKey: "clientId" });
+		this.Client.hasMany(this.Debt, { foreignKey: "clientId" });
+		this.Message.belongsTo(this.Client, { foreignKey: "clientId" });
+		this.Debt.belongsTo(this.Client, { foreignKey: "clientId" });
+	}
 
 	async addClient(name: string, rut: string) {
 		try {
@@ -122,14 +129,15 @@ class DatabaseController {
 			// Create a new client
 			const newClient = await this.Client.create({ name, rut });
 
-			console.log("Client added successfully:", newClient);
-			return newClient;
+			// console.log("Client added successfully:", newClient);
+			return newClient.dataValues.id;
 		} catch (error) {
 			console.error("Error adding client:", error);
 			throw error;
-		} finally {
-			await this.sequelize.close();
 		}
+		// finally {
+		// 	await this.sequelize.close();
+		// }
 	}
 
 	async addMessage(
@@ -150,14 +158,15 @@ class DatabaseController {
 				clientId,
 			});
 
-			console.log("Message added successfully:", newMessage);
-			return newMessage;
+			// console.log("Message added successfully:", newMessage);
+			return newMessage.dataValues.id;
 		} catch (error) {
 			console.error("Error adding message:", error);
 			throw error;
-		} finally {
-			await this.sequelize.close();
 		}
+		// finally {
+		// 	await this.sequelize.close();
+		// }
 	}
 
 	async addDebt(
@@ -178,13 +187,21 @@ class DatabaseController {
 				clientId,
 			});
 
-			console.log("Debt added successfully:", newDebt);
-			return newDebt;
+			// console.log("Debt added successfully:", newDebt);
+			return newDebt.dataValues.id;
 		} catch (error) {
 			console.error("Error adding debt:", error);
 			throw error;
-		} finally {
-			await this.sequelize.close();
 		}
+		// finally {
+		// 	await this.sequelize.close();
+		// }
+	}
+	async closeConection() {
+		await this.sequelize.close();
 	}
 }
+
+const databaseController = new DatabaseController();
+
+export default databaseController;

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,6 +15,8 @@
     "dotenv": "^16.4.5",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",
+    "koa-router": "^13.0.1",
+    "pg": "^8.13.0",
     "sequelize": "^6.37.4"
   },
   "devDependencies": {
