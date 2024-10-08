@@ -30,6 +30,17 @@ router.get("/clients", async (ctx) => {
 	}
 });
 
+router.get("/clients-to-do-follow-up", async (ctx) => {
+	try {
+		const clients = await databaseController.getClientsWithOldMessages();
+		ctx.body = clients;
+	} catch (error) {
+		console.log(error);
+		ctx.status = 500;
+		ctx.body = { message: "Internal server error." };
+	}
+});
+
 router.post("/clients", async (ctx) => {
 	try {
 		// retreive request body

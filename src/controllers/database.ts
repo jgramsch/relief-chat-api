@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize, DataTypes, Op } from "sequelize";
 import * as dotenv from "dotenv";
 
 dotenv.config();
@@ -238,6 +238,29 @@ class DatabaseController {
 			return result;
 		} catch (error) {
 			console.error("Error updating lastMessageAt:", error);
+			throw error;
+		}
+	}
+
+	async getClientsWithOldMessages() {
+		try {
+			const sevenDaysAgo = new Date();
+			sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+			// Find clients whose lastMessageAt is at least 7 days old
+			const clients = await this.Client.findAll({
+				where: {
+					lastMessageAt: {
+						[Op.lte]: sevenDaysAgo, // Op.lte means 'less than or equal to'
+					},
+				},
+				attributes: ["id", "name", "rut", "lastMessageAt"], // Optional: select specific columns
+			});
+
+			console.log("Clients with old messages:", clients);
+			return clients;
+		} catch (error) {
+			console.error("Error fetching clients with old messages:", error);
 			throw error;
 		}
 	}
