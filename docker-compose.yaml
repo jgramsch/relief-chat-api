@@ -13,7 +13,7 @@ services:
       POSTGRES_USER: dev
       POSTGRES_PASSWORD: dev
       POSTGRES_DB: relif_chat
-      DATABASE_URL: postgres://myuser:mypassword@db:5432/mydb
+      DATABASE_URL: postgres://dev:dev@relif_chat:5432/mydb
 
   db:
     image: postgres:15-alpine
