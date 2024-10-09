@@ -7,3 +7,5 @@
 - catch specific errors from database
 
 - add debt post
+
+- Add sale status to prompting
