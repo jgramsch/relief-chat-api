@@ -1,7 +1,10 @@
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import Koa from "koa";
 import Router from "koa-router";
 import bodyParser from "koa-bodyparser";
-import databaseController from "./controllers/database";
+import databaseController from "./database/controller";
 
 const app = new Koa();
 const router = new Router();

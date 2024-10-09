@@ -1,7 +1,4 @@
 import { Sequelize, DataTypes, Op } from "sequelize";
-import * as dotenv from "dotenv";
-
-dotenv.config();
 
 class DatabaseController {
 	sequelize = new Sequelize({
