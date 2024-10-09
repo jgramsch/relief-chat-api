@@ -18,10 +18,18 @@ export interface Client {
 	debts?: Debt[]; // (not in table)
 }
 
-export type ChatCompletionRole = "user" | "system";
+export interface Store {
+	name: string;
+	location: string;
+}
+export interface Car {
+	name: string;
+	price: number;
+	description: string;
+}
 
 export interface MessageInterface {
-	name: string;
-	role: ChatCompletionRole;
+	// name: string;
+	role: "user" | "system" | "assistant";
 	content: string;
 }

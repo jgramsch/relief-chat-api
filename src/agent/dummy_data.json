@@ -1,0 +1,41 @@
+{
+    "cars": [{
+        "name": "Mazda 1",
+        "price": 10000000,
+        "description": "SUV" 
+    },{
+        "name": "Mazda 2",
+        "price": 1000000,
+        "description": "Sedan" 
+    },{
+        "name": "Mazda 3",
+        "price": 20000000,
+        "description": "Mini van" 
+    },{
+        "name": "hyundai 1",
+        "price": 5000000,
+        "description": "Sport car"
+    },{
+        "name": "hyundai 2",
+        "price": 5000000,
+        "description": "Luxury car"
+    }],
+    "stores":[
+        {
+            "name": "Los cobres",
+            "location": "Vitacura"
+        },
+        {
+            "name": "Apoquindo",
+            "location": "las condes"
+        },
+        {
+            "name": "Carretera del cobre",
+            "location": "Rancagua"
+        },
+        {
+            "name": "Dos caracoles",
+            "location": "Providencia"
+        }
+    ]
+}

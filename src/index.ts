@@ -5,6 +5,8 @@ import Koa from "koa";
 import Router from "koa-router";
 import bodyParser from "koa-bodyparser";
 import databaseController from "./database/controller";
+import chatController from "./agent/controller";
+import { Client } from "./agent/models";
 
 const app = new Koa();
 const router = new Router();
@@ -44,7 +46,35 @@ router.get("/clients-to-do-follow-up", async (ctx) => {
 	}
 });
 
-router.post("/clients", async (ctx) => {
+router.get("/clients/:id/generateMessage", async (ctx) => {
+	try {
+		// retreive client info
+		const clientId = Number.parseInt(ctx.params.id);
+		const client = await databaseController.getSingleClient(clientId);
+		const clientObj: Client = {
+			name: client?.dataValues.name,
+			rut: client?.dataValues.rut,
+			messages: client?.dataValues.Messages,
+			debts: client?.dataValues.Debts,
+		};
+		// get chat completion
+		const message_text = await chatController.getChatCompletion(clientObj);
+		// add message to database
+		await databaseController.addMessage(
+			message_text,
+			"agent",
+			new Date(),
+			clientId
+		);
+		ctx.body = { text: message_text };
+	} catch (error) {
+		console.log(error);
+		ctx.status = 500;
+		ctx.body = { message: "Internal server error." };
+	}
+});
+
+router.post("/client", async (ctx) => {
 	try {
 		// retreive request body
 		const client = ctx.request.body as {
