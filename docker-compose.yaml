@@ -1,30 +1,36 @@
-version: '3.8'
-
 services:
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
+    container_name: relif_api_container
     ports:
-      - "3000:3000"
+      - '3000:3000'  # Expose API on port 3000 (adjust if necessary)
     depends_on:
       - db
     environment:
-      POSTGRES_USER: dev
-      POSTGRES_PASSWORD: dev
-      POSTGRES_DB: relif_chat
-      DATABASE_URL: postgres://dev:dev@db:5432/relif_chat
+      - DATABASE_HOST=db
+      - DATABASE_USER=dev
+      - DATABASE_PASSWORD=dev
+      - DATABASE_NAME=relif_chat
+      - DATABASE_PORT=5432
+    networks:
+      - app-network
 
   db:
-    image: postgres:15-alpine
+    image: postgres:13-alpine
+    container_name: postgres_container
     environment:
-      POSTGRES_USER: dev
-      POSTGRES_PASSWORD: dev
-      POSTGRES_DB: relif_chat
-    ports:
-      - "5432:5432"
+      - POSTGRES_USER=dev
+      - POSTGRES_PASSWORD=dev
+      - POSTGRES_DB=relif_chat
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'  # Expose Postgres on port 5432 (optional)
+    networks:
+      - app-network
+
+networks:
+  app-network:
 
 volumes:
-  postgres_data:
+  postgres-data:
