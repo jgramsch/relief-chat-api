@@ -212,7 +212,6 @@ class DatabaseController {
 				attributes: ["id", "name", "rut", "lastMessageAt"], // Specify the attributes to select
 			});
 
-			console.log("All clients:", clients);
 			return clients;
 		} catch (error) {
 			console.error("Error fetching clients:", error);
@@ -253,8 +252,6 @@ class DatabaseController {
 				},
 				attributes: ["id", "name", "rut", "lastMessageAt"], // Optional: select specific columns
 			});
-
-			console.log("Clients with old messages:", clients);
 			return clients;
 		} catch (error) {
 			console.error("Error fetching clients with old messages:", error);
