@@ -1,0 +1,79 @@
+{
+    "id": 47,
+    "name": "Paula Perez",
+    "rut": "11.111.115-4",
+    "lastMessageAt": "2024-10-10T04:27:36.048Z",
+    "Messages": [
+        {
+            "id": 56,
+            "text": "Hola, quiero comprar un auto",
+            "role": "client",
+            "sentAt": "2023-12-24T00:00:00.000Z",
+            "clientId": 47
+        },
+        {
+            "id": 57,
+            "text": "Perfecto, te puedo ayudar con eso",
+            "role": "agent",
+            "sentAt": "2023-12-24T00:00:00.000Z",
+            "clientId": 47
+        },
+        {
+            "id": 63,
+            "text": "Estoy buscando un auto deportivo ó alguno qu eme sirva para la ciudad",
+            "role": "client",
+            "sentAt": "2024-10-09T00:00:00.000Z",
+            "clientId": 47
+        },
+        {
+            "id": 64,
+            "text": "Entiendo, para un uso en la ciudad y si buscas algo deportivo, te recomendaría el Hyundai 1, que es un auto deportivo, o el Mazda 2, que es un sedán ideal para la ciudad. \n\n¿Te gustaría saber más sobre alguno de estos modelos?",
+            "role": "agent",
+            "sentAt": "2024-10-10T04:25:05.017Z",
+            "clientId": 47
+        },
+        {
+            "id": 65,
+            "text": "Qué me puedes decir del Hyundai 1 ? puedo pagar en cuotas?",
+            "role": "client",
+            "sentAt": "2024-10-09T00:00:00.000Z",
+            "clientId": 47
+        },
+        {
+            "id": 66,
+            "text": "El Hyundai 1 es un auto deportivo que combina un diseño atractivo con un rendimiento excelente, ideal para disfrutar de la conducción. Su precio es de 5,000,000. \n\nDado que no tienes deudas registradas, puedes optar por financiamiento y pagar en cuotas. ¿Te gustaría que te ayude a calcular un plan de cuotas o prefieres más información sobre el auto?",
+            "role": "agent",
+            "sentAt": "2024-10-10T04:25:57.124Z",
+            "clientId": 47
+        },
+        {
+            "id": 67,
+            "text": "Quisiera probar el auto antes de comprarlo",
+            "role": "client",
+            "sentAt": "2024-10-09T00:00:00.000Z",
+            "clientId": 47
+        },
+        {
+            "id": 68,
+            "text": "¡Claro! Es una excelente idea probar el auto antes de tomar una decisión. Te recomiendo que visites alguna de nuestras sucursales para hacer una prueba de manejo.\n\nLas sucursales disponibles son:\n\n- Los Cobres, en Vitacura\n- Apoquindo, en Las Condes\n- Carretera del Cobre, en Rancagua\n- Dos Caracoles, en Providencia\n\n¿Cuál de estas sucursales te queda más conveniente para que puedas probar el Hyundai 1?",
+            "role": "agent",
+            "sentAt": "2024-10-10T04:26:59.795Z",
+            "clientId": 47
+        },
+        {
+            "id": 69,
+            "text": "yo vivo en Vitacura",
+            "role": "client",
+            "sentAt": "2024-10-09T00:00:00.000Z",
+            "clientId": 47
+        },
+        {
+            "id": 70,
+            "text": "Perfecto, entonces te recomiendo que vayas a la sucursal de Los Cobres en Vitacura. Allí podrás hacer la prueba de manejo del Hyundai 1 y recibir más información sobre el financiamiento.\n\n¿Te gustaría que te ayude con algo más antes de que vayas a la sucursal?",
+            "role": "agent",
+            "sentAt": "2024-10-10T04:27:36.048Z",
+            "clientId": 47
+        }
+    ],
+    "Debts": []
+}

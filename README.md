@@ -11,7 +11,7 @@ las rutas definidas son:
 - POST `/client`
 - POST `/clients/:id/message`
 - GET `/clients`
-- GET `/clients/:id`
+- GET `/client/:id`
 - GET `/clients-to-do-follow-up`
 - GET `/clients/:id/generateMessage`
 
@@ -29,7 +29,14 @@ Tras probar con varios modelos, el modelo de menor precio que mejor hace la tare
 
 ### Prompt
 
-Para hacer el prompt se asumieron datos de autos y tiendas las que tienen descripciones básicas y locaciones ficticias. Estos se incluyen en el prompt además de la información de deudas de los clientes (sin el monto), para diferenciar instrucciones de información se usan tags de estilo html. El prompt en si se encuentra en un archivo llamado `prompt.txt` en la carpeta `src/agent/` junto con el archivo `dummy_data.json`. El prompt final es generado en código para permitir cambio en la información. Hasta ahora no se implementó que cada ubicación tenga un catalogo especifico de autos por lo que se asumió que todos los autos estaban disponibles en todos lados. Las etiquetas usadas son "<<d>Debts>"
+Para hacer el prompt se asumieron datos de autos y tiendas las que tienen descripciones básicas y locaciones ficticias. Estos se incluyen en el prompt además de la información de deudas de los clientes (sin el monto), para diferenciar instrucciones de información se usan tags de estilo html. El prompt en si se encuentra en un archivo llamado `prompt.txt` en la carpeta `src/agent/` junto con el archivo `dummy_data.json`. El prompt final es generado en código para permitir cambio en la información. Hasta ahora no se implementó que cada ubicación tenga un catalogo especifico de autos por lo que se asumió que todos los autos estaban disponibles en todos lados. Las etiquetas usadas son "<<d>Debts>", "<<d>Cars>" "<<d>Stores>"
+
+### Ejemplos
+
+Se incluyen dos ejemplos en el servidor de conversaciones en las cuales se dirige al cliente a una sucursal luego de ofrecersele un auto. El cliente de id 46 en especifico mantiene deudas por lo que al pedir cuotas se le niegan. La información de ambos clientes (con sus conversaciones), se encuentran en la carpeta `example_interactions`como archivos json, debido a que se trata de la respuesta de las llamadas a las rutas:
+
+- GET `relif.josemgramscha.cl/client/46/`
+- GET `relif.josemgramscha.cl/client/47/`
 
 ## Estructura del proyecto
 
@@ -47,6 +54,8 @@ El código está dividido en dos módulos: `database` y `agent` los cuales expor
 
 - Los modelos de database quedaron definidos en su controlador por tiempo. Esto en general debiese estar en otro archivo.
 - Dado que los ruts son únicos quise incluirlo en la base de datos por lo que si se intenta agregar usuarios con el mismo string de rut la api regresa "internal server error", sin embargo esto no bota la api por lo que se pueden seguir haciendo requests. Falta capturar bien ese error para que el mensaje que se responde haga sentido.
+- Probar calculo de cuotas con llm podría no dar buenos resultados. Sin embargo si se restringe el uso de estas dependiendo de las deudas del cliente. (ver ejemplos)
+- Por restricciones de tiempo opté por lanzar la versión de desarrollo como versión de producción, sin embargo la versión de producción se puede correr local mente como `npm run serve` con la salvedad que también es necesario correr el servidor de Postgres.
 
 ### TO DO
 
